@@ -13,4 +13,5 @@ export const FeaturedMovie = ({featuredMovie}) => (
     <p>{featuredMovie.Title}</p>
     <p>{featuredMovie.imdbRating}</p>
   </section>
+
 )
