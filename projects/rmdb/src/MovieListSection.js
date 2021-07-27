@@ -1,23 +1,17 @@
 import {useState} from 'react'
 import {MovieList} from './MovieList'
 import {Section} from './Section'
+/*
+MovieListSection only needs to render the children and doesn't need to do anything else with it;
+the children already will be at the level where they can interact with the necessary state
+*/
+export const MovieListSection = ({movies, title, subtitle, addMovieToWatchlist, children}) => {
 
-export const MovieListSection = ({movies, title, subtitle, filterable, addMovieToWatchlist}) => {
-
-  const [filterType, setFilterType] = useState(null)
-  const filteredMovies = filterType === null ? movies : movies.filter((movie) => movie.Type === filterType)
   return (<Section title={title} subtitle={subtitle}>
 
-  {
-    filterable && (<div>
-      <button id="series" onClick={() => setFilterType('series')}>TV Series</button>
-      <button id="movie" onClick={() => setFilterType('movie')}>Movies</button>
-      <button id="all" onClick={() => setFilterType(null)}>All</button>
+    {children}
 
-    </div>)
-  }
-
-  <MovieList movies={filteredMovies} addMovieToWatchlist={addMovieToWatchlist}/>
+  <MovieList movies={movies} addMovieToWatchlist={addMovieToWatchlist}/>
 
 </Section>)
 }

@@ -30,7 +30,7 @@ https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 
 https://flexboxfroggy.com/
 
---
+---
 
 react checks if my props has changed? if my state has changed?
   No, then I'm not doing anything
@@ -58,3 +58,11 @@ const doubleArr2 = [...arr2, ...arr2.reverse()]
 JSON.stringify(arr2) === JSON.stringify(copy)
 
 (push, pop mutates arrays, a bit slower)
+
+---
+React does not implicitly use props, so className must be passed down from react components to html elements, in order to use it.
+<Section className=?>  X
+<section className=?>  Y
+
+functions drilling down, on the root, call it handleXXX, and the others called onXXX
+(causing disconnect issue)
