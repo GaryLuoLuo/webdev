@@ -1,11 +1,34 @@
 import db from './db.json'
 import logo from './images/logo.png'
 import './App.scss'
-
+import {useState} from 'react'
 import { Logo } from './Logo'
 
-export const NavBar = () => (
-  <nav>
-    <Logo/>
-  </nav>
+import {UserSummary} from './UserSummary'
+import {SignInForm} from './SignInForm'
+
+export const NavBar = () => {
+
+  // conditional rendering, keep track of user state,
+  // if logged in, show user summary
+  // if logged out, show sign in form (with sign in button)
+  const [user, setUser] = useState(null)
+
+  const handleSignIn = (userInfo) => {
+    setUser(userInfo)
+  }
+
+  const handleSignOut = () => {
+    setUser(null)
+  }
+
+  return (
+    <nav >
+      <Logo/>
+      {user ? <UserSummary user={user} onSignout={handleSignOut} />
+            : <SignInForm onSignIn={handleSignIn} />}
+    </nav>
+
 )
+
+}
