@@ -66,3 +66,7 @@ React does not implicitly use props, so className must be passed down from react
 
 functions drilling down, on the root, call it handleXXX, and the others called onXXX
 (causing disconnect issue)
+
+---
+position: absolute
+the element is removed from the flow of the document and other elements will behave as if it’s not even there 

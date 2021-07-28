@@ -7,6 +7,8 @@ import { Logo } from './Logo'
 import {UserSummary} from './UserSummary'
 import {SignInForm} from './SignInForm'
 
+import './NavBar.scss'
+
 export const NavBar = () => {
 
   // conditional rendering, keep track of user state,
@@ -23,7 +25,7 @@ export const NavBar = () => {
   }
 
   return (
-    <nav >
+    <nav className="NavBar">
       <Logo/>
       {user ? <UserSummary user={user} onSignout={handleSignOut} />
             : <SignInForm onSignIn={handleSignIn} />}
