@@ -21,6 +21,8 @@ export const App = () => {
 
   const [watchlistMovies, setWatchlistMovies] = useState(allMovies.filter((movie) => movie.watchlist))
 
+  const [user, setUser] = useState(null)
+
   const addMovieToWatchlist = (movie) => {
     setWatchlistMovies(
       watchlistMovies.includes(movie) ? watchlistMovies : [...watchlistMovies, movie])
@@ -36,9 +38,9 @@ export const App = () => {
   }
 
   return   (<div className="App">
-    <NavBar/>
+    <NavBar user={user} setUser={setUser}/>
     <FeaturedMovie featuredMovie={featuredMovie}/>
-    <Watchlist watchlistMovies={watchlistMovies} />
+    <Watchlist watchlistMovies={watchlistMovies} user={user} />
     <AllMovies allMovies={allMovies} addMovieToWatchlist={addMovieToWatchlist}/>
     <LearnMore />
     <AddMovie onAddNewMovie={handleAddNewMovie}/>

@@ -2,7 +2,7 @@ import {MovieListSection} from './MovieListSection'
 import {Section} from './Section'
 import {useState} from 'react'
 
-export const Watchlist = ({watchlistMovies}) => {
+export const Watchlist = ({watchlistMovies, user}) => {
 
   const [filterDecade, setFilterDecade] = useState(null)
   const filteredMovies =
@@ -11,16 +11,24 @@ export const Watchlist = ({watchlistMovies}) => {
 
 
   return (
-    <MovieListSection
-      title="Watchlist"
-      subtitle="Dive into your favorites!"
-      movies={filteredMovies}>
+    <div>
+      {
+        user ? (
+          <MovieListSection
+            title="Watchlist"
+            subtitle="Dive into your favorites!"
+            movies={filteredMovies}>
 
-      <button onClick={() => setFilterDecade('2020')}>2020s</button>
-      <button onClick={() => setFilterDecade('2010')}>2010s</button>
-      <button onClick={() => setFilterDecade('2000')}>2000s</button>
-      <button onClick={() => setFilterDecade(null)}>All</button>
-    </MovieListSection>
+            <button onClick={() => setFilterDecade('2020')}>2020s</button>
+            <button onClick={() => setFilterDecade('2010')}>2010s</button>
+            <button onClick={() => setFilterDecade('2000')}>2000s</button>
+            <button onClick={() => setFilterDecade(null)}>All</button>
+          </MovieListSection>
+        ) : (
+          <MovieListSection title="Watchlist" subtitle="Sign in to access Watchlist"/>
+        )
+      }
+    </div>
 
   )
 

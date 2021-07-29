@@ -1,7 +1,7 @@
 import {MovieThumbnail} from './MovieThumbnail'
 import './MovieList.scss'
 
-export const MovieList = ({movies, addMovieToWatchlist}) => (
+export const MovieList = ({movies = [], addMovieToWatchlist}) => (
   <ul className="MovieList">
     {movies.map((movie) => (
       <li key={movie.imdbID}>

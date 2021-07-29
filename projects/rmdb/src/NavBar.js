@@ -9,12 +9,11 @@ import {SignInForm} from './SignInForm'
 
 import './NavBar.scss'
 
-export const NavBar = () => {
+export const NavBar = ({user, setUser}) => {
 
   // conditional rendering, keep track of user state,
   // if logged in, show user summary
   // if logged out, show sign in form (with sign in button)
-  const [user, setUser] = useState(null)
 
   const handleSignIn = (userInfo) => {
     setUser(userInfo)
