@@ -2,6 +2,8 @@
 import {useState} from 'react'
 import './MovieEdit.scss'
 
+import {MoviePoster} from './MoviePoster'
+
 const MAX_YEAR = new Date().getFullYear()
 const emptyMovie = {
   Title: "",
@@ -20,6 +22,8 @@ export const MovieEdit = ({movie=emptyMovie, setShowMovieEdit, onSave}) => {
   const [poster, setPoster] = useState(movie.Poster)
   const [imdbID, setImdbID] = useState(movie.imdbID)
   const [imdbRating, setImdbRating] = useState(movie.imdbRating)
+
+  const [showPreview, setShowPreview] = useState(false)
 
   const emptyForm = () => {
     setTitle('')
@@ -49,6 +53,12 @@ export const MovieEdit = ({movie=emptyMovie, setShowMovieEdit, onSave}) => {
     onSave(newMovie)
     emptyForm()
   }
+
+  const handlePreview = () => {
+    setShowPreview(!showPreview)
+  }
+
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
@@ -68,6 +78,8 @@ export const MovieEdit = ({movie=emptyMovie, setShowMovieEdit, onSave}) => {
 
         <label>Poster</label>
         <input type="url" required value={poster} onChange={e => setPoster(e.target.value)} />
+        <button type="button" onClick={handlePreview}>Preview</button>
+        {showPreview && (<MoviePoster poster={poster}/>)}
 
         <label>imdbID</label>
         <input type="text" required value={imdbID} onChange={e => setImdbID(e.target.value)} />

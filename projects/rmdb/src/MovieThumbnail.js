@@ -1,5 +1,6 @@
 import {MoviePoster} from './MoviePoster'
 import './MovieThumbnail.scss'
+import {ConfirmableButton } from './ConfirmableButton'
 
 export const MovieThumbnail = ({movie, addMovieToWatchlist, onClickEditMovie, onClickDelete}) => (
   <div className="MovieThumbnail">
@@ -12,7 +13,9 @@ export const MovieThumbnail = ({movie, addMovieToWatchlist, onClickEditMovie, on
     )}
 
     {onClickDelete && (
-      <button type="button" onClick={() => onClickDelete(movie)}>Delete</button>
+      <ConfirmableButton confirmText="Really?" onClick={() => onClickDelete(movie)}>
+        Delete
+      </ConfirmableButton>
     )}
   </div>
 )
