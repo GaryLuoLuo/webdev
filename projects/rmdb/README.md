@@ -84,4 +84,11 @@ list.map( e => {return e+1})
 
 ---
 className use xxx-yyy format
+---
 input with required
+
+label:not(.radio-label) {
+  display: block;
+}
+
+---

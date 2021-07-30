@@ -58,12 +58,26 @@ export const App = () => {
     setEditingMovie(null)
   }
 
+  const hangleClickDelete = (deletedMovie) => {
+    setAllMovies(allMovies.filter(
+      oneMovie => oneMovie.imdbID !== deletedMovie.imdbID
+    ))
+
+    setWatchlistMovies(watchlistMovies.filter(
+      oneMovie => oneMovie.imdbID !== deletedMovie.imdbID
+    ))
+  }
+
   return   (
     <div className="App">
         <NavBar user={user} setUser={setUser}/>
         <FeaturedMovie featuredMovie={featuredMovie}/>
         <Watchlist watchlistMovies={watchlistMovies} user={user} />
-        <AllMovies allMovies={allMovies} addMovieToWatchlist={addMovieToWatchlist} onClickEditMovie={handleClickEditMovie}/>
+        <AllMovies allMovies={allMovies}
+                  addMovieToWatchlist={addMovieToWatchlist}
+                  onClickEditMovie={handleClickEditMovie}
+                  onClickDelete={hangleClickDelete}/>
+
         { editingMovie && (
             <MovieEdit movie={editingMovie} setShowMovieEdit={setEditingMovie} onSave={handleEditMovieSave}/>
         )}

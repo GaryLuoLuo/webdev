@@ -1,7 +1,7 @@
 import {MoviePoster} from './MoviePoster'
 import './MovieThumbnail.scss'
 
-export const MovieThumbnail = ({movie, addMovieToWatchlist, onClickEditMovie}) => (
+export const MovieThumbnail = ({movie, addMovieToWatchlist, onClickEditMovie, onClickDelete}) => (
   <div className="MovieThumbnail">
     <MoviePoster poster={movie.Poster} />
     {movie.Title}
@@ -9,6 +9,10 @@ export const MovieThumbnail = ({movie, addMovieToWatchlist, onClickEditMovie}) =
 
     {onClickEditMovie && (
       <button type="button" onClick={() => onClickEditMovie(movie)}>Edit</button>
+    )}
+
+    {onClickDelete && (
+      <button type="button" onClick={() => onClickDelete(movie)}>Delete</button>
     )}
   </div>
 )
