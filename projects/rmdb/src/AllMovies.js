@@ -1,7 +1,7 @@
 import {MovieListSection} from './MovieListSection'
 import {useState} from 'react'
 
-export const AllMovies = ({allMovies, addMovieToWatchlist}) => {
+export const AllMovies = ({allMovies, addMovieToWatchlist, onClickEditMovie}) => {
 
   const [filterType, setFilterType] = useState(null)
   const filteredMovies = filterType === null ? allMovies :
@@ -12,7 +12,8 @@ export const AllMovies = ({allMovies, addMovieToWatchlist}) => {
       title="All Movies"
       subtitle="Discover something new."
       movies={filteredMovies}
-      addMovieToWatchlist={addMovieToWatchlist}>
+      addMovieToWatchlist={addMovieToWatchlist}
+      onClickEditMovie={onClickEditMovie}>
 
       <button onClick={() => setFilterType('series')}>TV Series</button>
       <button onClick={() => setFilterType('movie')}>Movies</button>

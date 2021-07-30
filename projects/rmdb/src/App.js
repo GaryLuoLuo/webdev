@@ -9,23 +9,25 @@ import {AllMovies} from './AllMovies'
 import {LearnMore} from './LearnMore'
 
 import {AddMovie} from './AddMovie'
+import {MovieEdit} from './MovieEdit'
 
 import {useState} from 'react'
 
-const movies = db.movies
-const featuredMovie = movies[0]
 
 export const App = () => {
 
   const [allMovies, setAllMovies] = useState(db.movies)
+  const featuredMovie = allMovies[0]
 
   const [watchlistMovies, setWatchlistMovies] = useState(allMovies.filter((movie) => movie.watchlist))
 
   const [user, setUser] = useState(null)
 
+  const [editingMovie, setEditingMovie] = useState(null) // state of movie being edited, null, movie1,...
+
   const addMovieToWatchlist = (movie) => {
     setWatchlistMovies(
-      watchlistMovies.includes(movie) ? watchlistMovies : [...watchlistMovies, movie])
+      watchlistMovies.find(m => m.imdbID === movie.imdbID) ? watchlistMovies : [...watchlistMovies, movie])
       // watchlistMovies.find( m => m === movie)
   }
 
@@ -37,13 +39,37 @@ export const App = () => {
     )
   }
 
-  return   (<div className="App">
-    <NavBar user={user} setUser={setUser}/>
-    <FeaturedMovie featuredMovie={featuredMovie}/>
-    <Watchlist watchlistMovies={watchlistMovies} user={user} />
-    <AllMovies allMovies={allMovies} addMovieToWatchlist={addMovieToWatchlist}/>
-    <LearnMore />
-    <AddMovie onAddNewMovie={handleAddNewMovie}/>
+  const handleClickEditMovie = (movie) => {
+    setEditingMovie(movie)
+  }
+
+  const handleEditMovieSave = (updatedMovie) => {
+    // import {assoc, assocPath} from 'ramda'
+    // setAllMovies(assocPath([???], updatedMovie, allMovies))
+    setAllMovies(allMovies.map( // map is also immutable, just verbose, but no need for index
+      (oneMovie) => (oneMovie.imdbID === updatedMovie.imdbID ? updatedMovie : oneMovie)
+
+    ))
+
+    setWatchlistMovies(watchlistMovies.map(
+      oneMovie => (oneMovie.imdbID === updatedMovie.imdbID ? updatedMovie : oneMovie)
+    ))
+
+    setEditingMovie(null)
+  }
+
+  return   (
+    <div className="App">
+        <NavBar user={user} setUser={setUser}/>
+        <FeaturedMovie featuredMovie={featuredMovie}/>
+        <Watchlist watchlistMovies={watchlistMovies} user={user} />
+        <AllMovies allMovies={allMovies} addMovieToWatchlist={addMovieToWatchlist} onClickEditMovie={handleClickEditMovie}/>
+        { editingMovie && (
+            <MovieEdit movie={editingMovie} setShowMovieEdit={setEditingMovie} onSave={handleEditMovieSave}/>
+        )}
+
+        <LearnMore />
+        <AddMovie onAddNewMovie={handleAddNewMovie}/>
     </div>)
 
 }

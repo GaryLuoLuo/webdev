@@ -69,4 +69,19 @@ functions drilling down, on the root, call it handleXXX, and the others called o
 
 ---
 position: absolute
-the element is removed from the flow of the document and other elements will behave as if it’s not even there 
+the element is removed from the flow of the document and other elements will behave as if it’s not even there
+
+---
+suggested handle function format:
+<button onClick={handleClick} />
+or
+<button onClick={(e) => e.target.value}
+
+---
+list.map( e => e+1)
+or
+list.map( e => {return e+1})
+
+---
+className use xxx-yyy format
+input with required

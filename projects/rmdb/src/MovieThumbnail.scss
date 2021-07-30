@@ -1,4 +1,9 @@
 .MovieThumbnail {
   display: flex;
   flex-direction: column;
+
+  .addMovieToWatchlist {
+    position: absolute;
+    margin: 2px
+  }
 }
