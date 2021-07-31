@@ -77,11 +77,7 @@ export const App = () => {
                   addMovieToWatchlist={addMovieToWatchlist}
                   onClickEditMovie={handleClickEditMovie}
                   onClickDelete={hangleClickDelete}/>
-
-        { editingMovie && (
-            <MovieEdit movie={editingMovie} setShowMovieEdit={setEditingMovie} onSave={handleEditMovieSave}/>
-        )}
-
+        {editingMovie && (<MovieEdit movie={editingMovie} setShowMovieEdit={setEditingMovie} onSave={handleEditMovieSave}/>)}
         <LearnMore />
         <AddMovie onAddNewMovie={handleAddNewMovie}/>
     </div>)
