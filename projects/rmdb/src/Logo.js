@@ -4,5 +4,5 @@ import './App.scss'
 
 
 export const Logo = () => (
-  <img src={logo}/>
+  <img src={logo} alt="Logo"/>
 )

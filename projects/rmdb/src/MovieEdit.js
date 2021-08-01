@@ -19,41 +19,22 @@ import {Button,
       } from '@material-ui/core'
 
 const MAX_YEAR = new Date().getFullYear()
-const emptyMovie = {
-  Title: "",
-  Year: "",
-  Type: null,
-  Poster: "",
-  imdbID: "",
-  imdbRating: ""
-}
 
-export const MovieEdit = ({movie=emptyMovie, setShowMovieEdit, onSave}) => {
+export const MovieEdit = ({movie, onClose, onSave}) => {
 
-  const [title, setTitle] = useState(movie.Title)
-  const [year, setYear] = useState(movie.Year)
-  const [type, setType] = useState(movie.Type)
-  const [poster, setPoster] = useState(movie.Poster)
-  const [imdbID, setImdbID] = useState(movie.imdbID)
-  const [imdbRating, setImdbRating] = useState(movie.imdbRating)
+  const [title, setTitle] = useState(movie.Title || '')
+  const [year, setYear] = useState(movie.Year || '')
+  const [type, setType] = useState(movie.Type || '')
+  const [poster, setPoster] = useState(movie.Poster || '')
+  const [imdbID, setImdbID] = useState(movie.imdbID || '')
+  const [imdbRating, setImdbRating] = useState(movie.imdbRating || '')
 
-  const [showPreview, setShowPreview] = useState(false)
+  const [showPreview, setShowPreview] = useState(false) // null, movie1, movie2, etc
 
-  // const emptyForm = () => {
-  //   setTitle('')
-  //   setYear('')
-  //   setType('movie')
-  //   setPoster('')
-  //   setImdbID('')
-  //   setImdbRating('')
-  // }
+  //responsive UI
+  const [saving, setSaving] = useState(false)
 
-  const handleCancel = () => {
-    setShowMovieEdit(null)
-    // emptyForm()
-  }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const newMovie = {
       ...movie,
@@ -64,9 +45,9 @@ export const MovieEdit = ({movie=emptyMovie, setShowMovieEdit, onSave}) => {
       "Poster": poster,
       "imdbRating": imdbRating
     }
-    onSave(newMovie)
-    // emptyForm()
-    setShowMovieEdit(null)
+    setSaving(true)
+    await onSave(newMovie)
+    setSaving(false)
   }
 
   const handlePreview = () => {
@@ -82,7 +63,7 @@ export const MovieEdit = ({movie=emptyMovie, setShowMovieEdit, onSave}) => {
   return (
 
     <div>
-      <Dialog open={true} onClose={handleCancel} aria-labelledby="form-dialog-title">
+      <Dialog open={true} onClose={onClose} aria-labelledby="form-dialog-title">
 
         <form onSubmit={handleSubmit}>
           <DialogTitle>Add or Edit Movie</DialogTitle>
@@ -168,11 +149,11 @@ export const MovieEdit = ({movie=emptyMovie, setShowMovieEdit, onSave}) => {
           </DialogContent>
 
           <DialogActions>
-            <Button onClick={handleCancel} color="primary">
+            <Button onClick={onClose} color="primary">
               Cancel
             </Button>
-            <Button type="submit" color="primary">
-              Save
+            <Button type="submit" color="primary" disabled={saving}>
+              {saving ? "Saving..." : "Save"}
             </Button>
           </DialogActions>
         </form>

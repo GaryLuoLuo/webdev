@@ -92,3 +92,12 @@ label:not(.radio-label) {
 }
 
 ---
+don't remove the movie from the UI until the server responds with a 200 OK
+
+const handleSave = async (movie) => {
+  await onSave(movie)
+  setShowNew(false)
+}
+
+await 如果返回 non 2xx, 就throw error, 下面code不会执行
+如果用try catch，error抓住了，下面还会执行

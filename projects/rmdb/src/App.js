@@ -13,6 +13,8 @@ import {MovieEdit} from './MovieEdit'
 
 import {useState} from 'react'
 
+import axios from 'axios'
+
 
 export const App = () => {
 
@@ -32,20 +34,24 @@ export const App = () => {
   }
 
   // add new movie to all Movies
-  const handleAddNewMovie = (movie) => {
+  const handleAddNewMovie = async (movie) => {
+    // for add new movie,  use returned data with "id" to save into state
+    const {data} = await axios.post('http://localhost:3001/movies', movie)
 
     setAllMovies(
-      allMovies.find(m => m.imdbID === movie.imdbID) ? allMovies : [...allMovies, movie]
+      allMovies.find(m => m.imdbID === movie.imdbID) ? allMovies : [...allMovies, data]
     )
   }
 
-  const handleClickEditMovie = (movie) => {
-    setEditingMovie(movie)
-  }
-
-  const handleEditMovieSave = (updatedMovie) => {
+  const handleSaveForEdit = async (updatedMovie) => {
     // import {assoc, assocPath} from 'ramda'
     // setAllMovies(assocPath([???], updatedMovie, allMovies))
+
+    await axios.put(
+      `http://localhost:3001/movies/${updatedMovie.id}`,
+       updatedMovie
+     )
+
     setAllMovies(allMovies.map( // map is also immutable, just verbose, but no need for index
       (oneMovie) => (oneMovie.imdbID === updatedMovie.imdbID ? updatedMovie : oneMovie)
 
@@ -58,7 +64,8 @@ export const App = () => {
     setEditingMovie(null)
   }
 
-  const hangleClickDelete = (deletedMovie) => {
+  const handleDelete = async (deletedMovie) => {
+    await axios.delete(`http://localhost:3001/movies/${deletedMovie.id}`)
     setAllMovies(allMovies.filter(
       oneMovie => oneMovie.imdbID !== deletedMovie.imdbID
     ))
@@ -75,11 +82,13 @@ export const App = () => {
         <Watchlist watchlistMovies={watchlistMovies} user={user} />
         <AllMovies allMovies={allMovies}
                   addMovieToWatchlist={addMovieToWatchlist}
-                  onClickEditMovie={handleClickEditMovie}
-                  onClickDelete={hangleClickDelete}/>
-        {editingMovie && (<MovieEdit movie={editingMovie} setShowMovieEdit={setEditingMovie} onSave={handleEditMovieSave}/>)}
+                  onEdit={(movie) => setEditingMovie(movie)}
+                  onDelete={handleDelete}/>
+        {editingMovie && (<MovieEdit movie={editingMovie}
+                                      onClose={() => setEditingMovie(null)}
+                                      onSave={handleSaveForEdit}/>)}
         <LearnMore />
-        <AddMovie onAddNewMovie={handleAddNewMovie}/>
+        <AddMovie onSave={handleAddNewMovie}/>
     </div>)
 
 }

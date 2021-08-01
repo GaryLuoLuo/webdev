@@ -1,15 +1,15 @@
 import {MovieThumbnail} from './MovieThumbnail'
 import './MovieList.scss'
 
-export const MovieList = ({movies = [], addMovieToWatchlist, onClickEditMovie, onClickDelete}) => (
+export const MovieList = ({movies = [], addMovieToWatchlist, onEdit, onDelete}) => (
   <ul className="MovieList">
     {movies.map((movie) => (
       <li key={movie.imdbID}>
         <MovieThumbnail
           movie={movie}
           addMovieToWatchlist={addMovieToWatchlist}
-          onClickEditMovie={onClickEditMovie}
-          onClickDelete={onClickDelete}/>
+          onEdit={onEdit}
+          onDelete={onDelete}/>
       </li>
     ))}
   </ul>
