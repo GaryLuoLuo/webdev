@@ -1,7 +1,5 @@
 import './App.scss'
 
-import db from './db.json'
-
 import {NavBar} from './NavBar'
 import {FeaturedMovie} from './FeaturedMovie'
 import {Watchlist} from './Watchlist'
@@ -11,21 +9,37 @@ import {LearnMore} from './LearnMore'
 import {AddMovie} from './AddMovie'
 import {MovieEdit} from './MovieEdit'
 
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 import axios from 'axios'
 
 
 export const App = () => {
 
-  const [allMovies, setAllMovies] = useState(db.movies)
+  const [allMovies, setAllMovies] = useState([])
   const featuredMovie = allMovies[0]
 
-  const [watchlistMovies, setWatchlistMovies] = useState(allMovies.filter((movie) => movie.watchlist))
+  const [watchlistMovies, setWatchlistMovies] = useState([])
 
   const [user, setUser] = useState(null)
 
   const [editingMovie, setEditingMovie] = useState(null) // state of movie being edited, null, movie1,...
+
+  useEffect(() => {
+    (async () => {
+      // load all Movies
+      const {data} = await axios.get('http://localhost:3001/movies')
+      setAllMovies(data)
+      // return () => {
+      //   // clear out the old data
+      // }
+    })()
+  }, [])
+
+  useEffect(() => {
+    setWatchlistMovies(allMovies.filter((movie) => movie.watchlist))
+  }, [allMovies])
+
 
   const addMovieToWatchlist = (movie) => {
     setWatchlistMovies(

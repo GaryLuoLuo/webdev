@@ -1,4 +1,4 @@
-import db from './db.json'
+
 import logo from './images/logo.png'
 import './App.scss'
 

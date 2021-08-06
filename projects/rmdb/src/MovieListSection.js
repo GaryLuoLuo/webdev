@@ -1,4 +1,4 @@
-import {useState} from 'react'
+
 import {MovieList} from './MovieList'
 import {Section} from './Section'
 /*
