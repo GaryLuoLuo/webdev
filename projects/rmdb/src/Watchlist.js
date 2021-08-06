@@ -1,10 +1,12 @@
 import {AuthenticatedMovieListSection} from './AuthenticatedMovieListSection'
-import {Section} from './Section'
 import {useState} from 'react'
 
-export const Watchlist = ({watchlistMovies, user}) => {
+export const Watchlist = ({allMovies, user, onRemove}) => {
 
   const [filterDecade, setFilterDecade] = useState(null)
+
+  const watchlistMovies = allMovies.filter((movie) => movie.watchlist)
+
   const filteredMovies =
                 filterDecade === null ? watchlistMovies :
                                         watchlistMovies.filter((movie) => movie.Year.substring(0,3) === filterDecade.substring(0, 3))
@@ -15,7 +17,8 @@ export const Watchlist = ({watchlistMovies, user}) => {
       title="Watchlist"
       subtitle="Dive into your favorites!"
       movies={filteredMovies}
-      user={user}>
+      user={user}
+      onRemove={onRemove}>
 
       <button onClick={() => setFilterDecade('2020')}>2020s</button>
       <button onClick={() => setFilterDecade('2010')}>2010s</button>

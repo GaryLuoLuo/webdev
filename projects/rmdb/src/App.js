@@ -9,7 +9,7 @@ import {LearnMore} from './LearnMore'
 import {AddMovie} from './AddMovie'
 import {MovieEdit} from './MovieEdit'
 
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 
 import {useMovies} from './hooks/useMovies'
 
@@ -18,38 +18,26 @@ export const App = () => {
 
   const featuredMovie = allMovies[0]
 
-  const [watchlistMovies, setWatchlistMovies] = useState([])
-
   const [user, setUser] = useState(null)
 
   const [editingMovie, setEditingMovie] = useState(null) // state of movie being edited, null, movie1,...
 
-  useEffect(() => {
-    setWatchlistMovies(allMovies.filter((movie) => movie.watchlist))
-  }, [allMovies])
-
-
-  const addMovieToWatchlist = (movie) => {
-    setWatchlistMovies(
-      watchlistMovies.find(m => m.imdbID === movie.imdbID) ? watchlistMovies : [...watchlistMovies, movie])
-      // watchlistMovies.find( m => m === movie)
-  }
-
   const handleSaveForEdit = async (updatedMovie) => {
     await updateMovie(updatedMovie)
-    setWatchlistMovies(watchlistMovies.map(
-      oneMovie => (oneMovie.imdbID === updatedMovie.imdbID ? updatedMovie : oneMovie)
-    ))
     setEditingMovie(null)
   }
 
   const handleDelete = async (deletedMovie) => {
     await deleteMovie(deletedMovie)
-    setWatchlistMovies(watchlistMovies.filter(
-      oneMovie => oneMovie.imdbID !== deletedMovie.imdbID
-    ))
   }
 
+  const handleRemoveWatchlist = async (removedMovie) => {
+    await updateMovie({...removedMovie, watchlist: false})
+  }
+
+  const handleAddWatchlist = async (movie) => {
+    await updateMovie({...movie, watchlist: true})
+  }
 
   return   (
     <div className="App">
@@ -58,9 +46,9 @@ export const App = () => {
         <div>
           <NavBar user={user} setUser={setUser}/>
           <FeaturedMovie featuredMovie={featuredMovie}/>
-          <Watchlist watchlistMovies={watchlistMovies} user={user} />
+          <Watchlist allMovies={allMovies} user={user} onRemove={handleRemoveWatchlist}/>
           <AllMovies allMovies={allMovies}
-                    addMovieToWatchlist={addMovieToWatchlist}
+                    addMovieToWatchlist={handleAddWatchlist}
                     onEdit={(movie) => setEditingMovie(movie)}
                     onDelete={handleDelete}/>
           {editingMovie && (<MovieEdit movie={editingMovie}

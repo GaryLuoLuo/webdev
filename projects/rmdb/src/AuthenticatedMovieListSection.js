@@ -1,12 +1,16 @@
 import {MovieListSection} from './MovieListSection'
 import {Section} from './Section'
 
-export const AuthenticatedMovieListSection = ({movies, title, subtitle, user, children}) => {
+export const AuthenticatedMovieListSection = ({movies, title, subtitle, user, onRemove, children}) => {
 
 
   return (
     <div>
-      {user ? (<MovieListSection title={title} subtitle={subtitle} movies={movies} >
+      {user ? (<MovieListSection
+                          title={title}
+                          subtitle={subtitle}
+                          movies={movies}
+                          onDelete={onRemove} >
                   {children}
                 </MovieListSection>) : (
                   <Section title={title} subtitle={subtitle}>
