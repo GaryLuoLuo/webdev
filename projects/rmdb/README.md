@@ -101,3 +101,13 @@ const handleSave = async (movie) => {
 
 await 如果返回 non 2xx, 就throw error, 下面code不会执行
 如果用try catch，error抓住了，下面还会执行
+
+---
+result is different: async/sync in useEffect, and multiple setState
+
+(normal/sync) it runs all the way down, and bundle and render the page once, print setState/setState/render
+
+(async) it waits every setState, and print render/setState/render/setState...
+
+----
+only functional component(return </>)  and  custom hooks(just a function with useXXX naming) can use useState in it
