@@ -6,6 +6,21 @@
     position: relative;
   }
 
+  .logo-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      margin-right: 5px;
+      height: 28px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
   form {
     position: absolute;
     right: 0;

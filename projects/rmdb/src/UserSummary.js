@@ -1,11 +1,10 @@
 
-export const UserSummary = ({user, onSignout}) => {
-
+export const UserSummary = ({user, signOut}) => {
 
   return (
     <div>
       {user.username}
-      <button onClick={onSignout}>Sign Out</button>
+      <button onClick={signOut}>Sign Out</button>
     </div>
   )
 }

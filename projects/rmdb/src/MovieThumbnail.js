@@ -1,10 +1,15 @@
 import {MoviePoster} from './MoviePoster'
 import './MovieThumbnail.scss'
 import {ConfirmableButton } from './ConfirmableButton'
+import {Link} from 'react-router-dom'
 
 export const MovieThumbnail = ({movie, addMovieToWatchlist, onEdit, onDelete}) => (
   <div className="MovieThumbnail">
-    <MoviePoster poster={movie.Poster} />
+
+    <Link to={`/movies/${movie.imdbID}`}>
+      <MoviePoster poster={movie.Poster} />
+    </Link>
+
     {movie.Title}
     {addMovieToWatchlist && (<button className="addMovieToWatchlist" onClick={() => addMovieToWatchlist(movie)} >+</button>)}
 

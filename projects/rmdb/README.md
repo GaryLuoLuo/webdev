@@ -111,3 +111,14 @@ result is different: async/sync in useEffect, and multiple setState
 
 ----
 only functional component(return </>)  and  custom hooks(just a function with useXXX naming) can use useState in it
+
+---
+https://github.com/rehooks/awesome-react-hooks
+https://github.com/enaqx/awesome-react
+
+https://www.npmjs.com/package/crud-muffins
+https://github.com/AndrewSouthpaw/crud-muffins/blob/master/src/index.js
+
+---
+unmounting logic -> return fn/callback in useEffect
+as soon as component unmounts, it runs the fn
