@@ -2,6 +2,8 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import {useList} from './useList'
 
+const apiKey = '5593d6a3'
+
 export const useMovies = () => {
   const [loading, setLoading] = useState(true)
   const {data: allMovies, add, update, set, remove} = useList([])
@@ -43,5 +45,12 @@ export const useMovies = () => {
     remove(deletedMovie)
   }
 
-  return {allMovies, loading, addMovie, updateMovie, deleteMovie}
+  const updateMovieFromOMDb = async (movie) => {
+    // ignore if no movie or we already have expanded version
+    if (!movie || movie.Plot) return
+    const {data} = await axios.get(`http://www.omdbapi.com/?apikey=${apiKey}&i=${movie.imdbID}`)
+    await updateMovie({...movie, ...data})
+  }
+
+  return {allMovies, loading, addMovie, updateMovie, deleteMovie, updateMovieFromOMDb}
 }
