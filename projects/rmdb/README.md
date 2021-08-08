@@ -123,5 +123,8 @@ https://github.com/AndrewSouthpaw/crud-muffins/blob/master/src/index.js
 unmounting logic -> return fn/callback in useEffect
 as soon as component unmounts, it runs the fn
 
+combine obj -> { ...movie, ...data }
 ---
 yarn test = yarn jest + watching
+
+---

@@ -3,7 +3,7 @@ import './MovieThumbnail.scss'
 import {ConfirmableButton } from './ConfirmableButton'
 import {Link} from 'react-router-dom'
 
-export const MovieThumbnail = ({movie, addMovieToWatchlist, onEdit, onDelete}) => (
+export const MovieThumbnail = ({movie, addMovieToWatchlist, onEdit, onDelete, children}) => (
   <div className="MovieThumbnail">
 
     <Link to={`/movies/${movie.imdbID}`}>
@@ -22,5 +22,7 @@ export const MovieThumbnail = ({movie, addMovieToWatchlist, onEdit, onDelete}) =
         Delete
       </ConfirmableButton>
     )}
+
+    {children}
   </div>
 )
