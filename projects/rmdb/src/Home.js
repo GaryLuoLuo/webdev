@@ -7,7 +7,7 @@ import {AddMovie} from './AddMovie'
 import {MovieEdit} from './MovieEdit'
 import {useState} from 'react'
 
-export const Home = ({moviesState, userState}) => {
+export const Home = ({moviesState}) => {
 
   const {allMovies, loading, addMovie, updateMovie, deleteMovie} = moviesState
 
@@ -38,7 +38,7 @@ export const Home = ({moviesState, userState}) => {
       (
         <div>
           <FeaturedMovie featuredMovie={featuredMovie}/>
-          <Watchlist allMovies={allMovies} user={userState.user} onRemove={handleRemoveWatchlist}/>
+          <Watchlist allMovies={allMovies} onRemove={handleRemoveWatchlist}/>
           <AllMovies allMovies={allMovies}
                     addMovieToWatchlist={handleAddWatchlist}
                     onEdit={(movie) => setEditingMovie(movie)}

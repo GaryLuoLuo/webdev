@@ -1,8 +1,10 @@
 import {MovieListSection} from './MovieListSection'
 import {Section} from './Section'
+import {AuthContext} from './contexts/auth'
+import {useContext} from 'react'
+export const AuthenticatedMovieListSection = ({movies, title, subtitle, onRemove, children}) => {
 
-export const AuthenticatedMovieListSection = ({movies, title, subtitle, user, onRemove, children}) => {
-
+  const {user} = useContext(AuthContext)
 
   return (
     <div>

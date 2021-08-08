@@ -8,13 +8,16 @@ import {Route, Link} from 'react-router-dom'
 
 import './NavBar.scss'
 
-export const NavBar = ({userState}) => {
+import {AuthContext} from './contexts/auth'
+import {useContext} from 'react'
+
+export const NavBar = () => {
 
   // conditional rendering, keep track of user state,
   // if logged in, show user summary
   // if logged out, show sign in form (with sign in button)
 
-  const {user, signIn, signOut} = userState
+  const {user} = useContext(AuthContext)
   return (
     <nav className="NavBar">
       <div className="logo-section">
@@ -25,8 +28,8 @@ export const NavBar = ({userState}) => {
         </Route>
         <Logo/>
       </div>
-      {user ? <UserSummary user={user} signOut={signOut} />
-            : <SignInForm signIn={signIn} />}
+      {user ? <UserSummary />
+            : <SignInForm />}
     </nav>
 
 )

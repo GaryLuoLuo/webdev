@@ -128,3 +128,28 @@ combine obj -> { ...movie, ...data }
 yarn test = yarn jest + watching
 
 ---
+context(global react state, avoid prop drilling) is an object that can be exported
+DO NOT create the context inside a React component
+
+1. create Context:
+export const ThemeContext = React.createContext('light')
+
+2. Set value and render tree
+const App = () => {
+  return (
+    <ThemeContext.Provider value="dark">
+    {/* ... */ }
+    </ThemeContext.Provider>
+  )
+}
+
+3. Read from context
+read Context:
+//• Read from context with useContext hook
+//• Pass in the context object!
+import { ThemeContext } from './somewhereElse.js'
+//• somewhere in your app...
+const Toolbar = () => {
+  const theme = useContext(ThemeContext)
+  console.log(theme) // 'light'
+}

@@ -9,7 +9,7 @@ import {
 import {Home} from './Home'
 import {Detail} from './Detail'
 import {NavBar} from './NavBar'
-
+import {AuthContext} from './contexts/auth'
 
 export const App = () => {
   // {allMovies, loading, addMovie, updateMovie, deleteMovie}
@@ -17,23 +17,25 @@ export const App = () => {
   const userState = useUser()
 
   return   (
-    <Router>
-      <div className="App">
+      <Router>
+        <div className="App">
+          <AuthContext.Provider value={userState}>
 
-        <NavBar userState={userState}/>
+            <NavBar/>
 
-        <Switch>
-          <Route path="/movies/:imdbID">
-            <Detail moviesState={moviesState}/>
-          </Route>
+            <Switch>
+              <Route path="/movies/:imdbID">
+                <Detail moviesState={moviesState}/>
+              </Route>
 
-          <Route path="/" exact>
-            <Home moviesState={moviesState} userState={userState}/>
-          </Route>
-        </Switch>
+              <Route path="/" exact>
+                <Home moviesState={moviesState}/>
+              </Route>
+            </Switch>
 
-      </div>
-    </Router>
+          </AuthContext.Provider>
+        </div>
+      </Router>
   )
 
 }

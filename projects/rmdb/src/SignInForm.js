@@ -1,8 +1,9 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import {AuthContext} from './contexts/auth'
 
-export const SignInForm = ({signIn}) => {
+export const SignInForm = () => {
 
-
+  const {signIn} = useContext(AuthContext)
   // keep track of the signin form showing
   const [showSignIn, setShowSignIn] = useState(false)
 

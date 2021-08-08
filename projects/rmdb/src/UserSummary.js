@@ -1,6 +1,8 @@
+import {useContext} from 'react'
+import {AuthContext} from './contexts/auth'
+export const UserSummary = () => {
 
-export const UserSummary = ({user, signOut}) => {
-
+  const {user, signOut} = useContext(AuthContext)
   return (
     <div>
       {user.username}

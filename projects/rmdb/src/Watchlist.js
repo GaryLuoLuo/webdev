@@ -1,7 +1,7 @@
 import {AuthenticatedMovieListSection} from './AuthenticatedMovieListSection'
 import {useState} from 'react'
 
-export const Watchlist = ({allMovies, user, onRemove}) => {
+export const Watchlist = ({allMovies, onRemove}) => {
 
   const [filterDecade, setFilterDecade] = useState(null)
 
@@ -17,7 +17,6 @@ export const Watchlist = ({allMovies, user, onRemove}) => {
       title="Watchlist"
       subtitle="Dive into your favorites!"
       movies={filteredMovies}
-      user={user}
       onRemove={onRemove}>
 
       <button onClick={() => setFilterDecade('2020')}>2020s</button>
